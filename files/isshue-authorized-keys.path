@@ -1,0 +1,8 @@
+[Unit]
+Description=isshue user authorized_keys generator
+
+[Path]
+PathModified=/etc/isshue/users.yml
+
+[Install]
+WantedBy=multi-user.target

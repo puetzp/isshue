@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ]; then
+    adduser --shell /bin/sh --system --group --disabled-password --home /home/isshue isshue
+
+    mkdir -p /home/isshue/.ssh
+    chown isshue:isshue /home/isshue/.ssh
+
+    mkdir -p /var/lib/isshue/data
+    chown -R isshue:isshue /var/lib/isshue
+    chmod 755 /var/lib/isshue
+
+    mkdir -p /etc/isshue/ca
+    chmod 755 /etc/isshue
+    chmod 700 /etc/isshue/ca
+    chown -R isshue:isshue /etc/isshue
+
+    systemctl enable isshue-authorized-keys.path
+    systemctl start isshue-authorized-keys.path
+    systemctl start isshue-authorized-keys.service
+fi
+
+#DEBHELPER#

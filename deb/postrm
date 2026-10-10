@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "remove" ]; then
+    deluser --remove-home isshue
+    rmdir --ignore-fail-on-non-empty /etc/isshue
+    rmdir --ignore-fail-on-non-empty /var/lib/isshue
+    systemctl daemon-reload
+fi
+
+if [ "$1" = "purge" ]; then
+    rm -rf /etc/isshue
+    rm -rf /var/lib/isshue
+    systemctl daemon-reload
+fi
+
+#DEBHELPER#
+
+

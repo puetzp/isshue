@@ -1,0 +1,30 @@
+[package]
+name = "isshue"
+version = "0.1.0"
+edition = "2024"
+authors = ["Peter Sebastian Puetz <ppuetz@protonmail.com>"]
+description = "SSH-based X.509 certificate issuance"
+readme = "README.md"
+license = "MIT"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4.6", features = ["cargo"] }
+openssl = { version = "0.10", features = ["vendored"] }
+serde = { version = "1", features = ["derive"] }
+shlex = "2.0"
+strict-yaml-rust = { version = "0.2", features = ["serde"] }
+
+[package.metadata.deb]
+extended-description = "SSH-based X.509 certificate issuance"
+section = "admin"
+priority = "optional"
+maintainer-scripts = "deb/"
+assets = [
+       ["target/release/isshue", "/usr/bin/isshue", "755"],
+       ["apparmor/usr.bin.isshue", "/etc/apparmor.d/usr.bin.isshue", "644"],
+       ["files/sshd_config", "/etc/ssh/sshd_config.d/isshue.conf", "644"],
+       ["files/isshue-authorized-keys.path", "/etc/systemd/system/isshue-authorized-keys.path", "644"],
+       ["files/isshue-authorized-keys.service", "/etc/systemd/system/isshue-authorized-keys.service", "644"],
+]
+depends = "$auto, bsdutils, yq, openssh-server, systemd"

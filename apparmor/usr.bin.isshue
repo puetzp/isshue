@@ -1,0 +1,13 @@
+abi <abi/3.0>,
+
+include <tunables/global>
+
+/usr/bin/isshue {
+  include <abstractions/base>
+
+  /usr/bin/isshue mr,
+  owner /etc/isshue/** r,
+  owner /var/lib/isshue/** w,
+
+  /usr/bin/logger mr
+}
